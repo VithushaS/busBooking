@@ -12,7 +12,7 @@ public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int busNo;
+    private Long busNo;
     private String busName;
     private int capacity;
     @Enumerated(value = EnumType.STRING)
