@@ -10,4 +10,6 @@ public interface BusService {
    boolean checkExistsBusNo(Long busNo);
     List<BusRespose> getAllBuses();
    boolean existsById(Long id);
+
+    void deleteBus(Long id);
 }

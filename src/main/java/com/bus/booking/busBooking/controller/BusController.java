@@ -5,6 +5,7 @@ import com.bus.booking.busBooking.dto.BusRequest;
 import com.bus.booking.busBooking.service.BusService;
 import com.bus.booking.busBooking.util.StatusCodeBundle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,10 +33,18 @@ public class BusController {
 @PutMapping(value = EndpointURI.BUS_DETAILS)
     public ResponseEntity<Object> updateBus(@RequestBody BusRequest busRequest){
     if(!busService.existsById(busRequest.getId())){
-        return ResponseEntity.ok("Bus not exists");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bus not exists");
     }
     busService.saveBus(busRequest);
     return ResponseEntity.ok("updated successfully");
+}
+@DeleteMapping(value = EndpointURI.BUS_BYID)
+    public ResponseEntity<Object> deleteBus(@PathVariable Long id){
+    if(!busService.existsById(id)){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bus not exists");
+    }
+    busService.deleteBus(id);
+    return ResponseEntity.ok("bus deleted successfully");
 }
 
 }

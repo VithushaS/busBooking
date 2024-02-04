@@ -43,4 +43,9 @@ public class BusServiceImpl implements BusService{
     public boolean existsById(Long id) {
         return busRepository.existsById(id);
     }
+
+    @Override
+    public void deleteBus(Long id) {
+        busRepository.deleteById(id);
+    }
 }
