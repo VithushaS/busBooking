@@ -69,4 +69,9 @@ public class BookingServiceImpl implements BookingService{
         }
         return bookingResponseList;
     }
+
+    @Override
+    public boolean existsByBusId(Long id) {
+        return bookingRepository.existsByBusId(id);
+    }
 }

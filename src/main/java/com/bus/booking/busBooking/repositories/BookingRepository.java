@@ -9,4 +9,6 @@ import java.sql.Date;
 public interface BookingRepository extends JpaRepository<Booking,Long> {
 
     int countByBusAndDate(Bus bus, Date date);
+
+    boolean existsByBusId(Long id);
 }

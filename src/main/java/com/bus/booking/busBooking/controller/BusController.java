@@ -2,6 +2,7 @@ package com.bus.booking.busBooking.controller;
 
 import com.bus.booking.busBooking.EndpointURI;
 import com.bus.booking.busBooking.dto.BusRequest;
+import com.bus.booking.busBooking.service.BookingService;
 import com.bus.booking.busBooking.service.BusService;
 import com.bus.booking.busBooking.util.StatusCodeBundle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class BusController {
     private StatusCodeBundle statusCodeBundle;
     @Autowired
    private BusService busService;
+    @Autowired
+    private BookingService bookingService;
 @PostMapping(value = EndpointURI.BUS_DETAILS)
     public ResponseEntity<Object> addBus(@RequestBody BusRequest busRequest){
     if(busService.checkExistsBusNo(busRequest.getBusNo())){
@@ -42,6 +45,9 @@ public class BusController {
     public ResponseEntity<Object> deleteBus(@PathVariable Long id){
     if(!busService.existsById(id)){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Bus not exists");
+    }
+    if(bookingService.existsByBusId(id)){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This bus seats booked.so can't delete");
     }
     busService.deleteBus(id);
     return ResponseEntity.ok("bus deleted successfully");
