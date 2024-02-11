@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BusRequest {
+public class BusRespose {
     private Long id;
     private Long busNo;
     private String busName;
@@ -14,5 +14,4 @@ public class BusRequest {
     private Amenities amenities;
     private String routeFrom;
     private String routeTo;
-
 }
