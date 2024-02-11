@@ -13,4 +13,6 @@ public interface BookingService {
     void deleteBooking(Long id);
 
     List<BookingResponse> getAllBookings();
+
+    boolean existsByBusId(Long id);
 }
