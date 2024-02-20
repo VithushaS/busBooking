@@ -22,6 +22,8 @@ public class BookingServiceImpl implements BookingService{
     BookingRepository bookingRepository;
     @Autowired
     BusRepository busRepository;
+    @Autowired
+    private EmailService emailService;
     @Override
     public void saveBooking(BookingRequest bookingRequest) {
        Optional <Bus> busOptional = busRepository.findById(bookingRequest.getBusId());
@@ -40,6 +42,12 @@ public class BookingServiceImpl implements BookingService{
                booking.setBus(bus);
                booking.setDate(bookingDate);
                bookingRepository.save(booking);
+
+               //send email to passenger's mail
+               String subject = "Booking Conformation";
+               String text = "Your booking has been confirmed";
+               emailService.sendBookingConfirmationEmail(bookingRequest.getEmailAddress(),subject,text);
+
            } else {
                throw new RuntimeException("Bus is full. Cannot make the booking.");
            }
